@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, ArrowRight, Sparkles } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const WHATSAPP_URL = "https://wa.me/5527998210071?text=Ol%C3%A1%2C%20vim%20do%20site.%20Gostaria%20de%20saber%20mais!";
 
 const CTA = () => {
+  const isMobile = useIsMobile();
   return (
     <section id="contato" className="py-32 relative">
       <div className="container mx-auto px-4">
@@ -36,31 +38,33 @@ const CTA = () => {
           <div className="glass-card rounded-[2rem]" />
 
           <div className="relative p-12 md:p-24 text-center">
-            {/* Floating sparkles */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {[...Array(6)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute"
-                  style={{
-                    left: `${20 + Math.random() * 60}%`,
-                    top: `${20 + Math.random() * 60}%`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.3, 1, 0.3],
-                    rotate: [0, 180, 360],
-                  }}
-                  transition={{
-                    duration: 3 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                  }}
-                >
-                  <Sparkles className="w-4 h-4 text-primary/50" />
-                </motion.div>
-              ))}
-            </div>
+            {/* Floating sparkles - desktop only */}
+            {!isMobile && (
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute"
+                    style={{
+                      left: `${20 + Math.random() * 60}%`,
+                      top: `${20 + Math.random() * 60}%`,
+                    }}
+                    animate={{
+                      y: [0, -20, 0],
+                      opacity: [0.3, 1, 0.3],
+                      rotate: [0, 180, 360],
+                    }}
+                    transition={{
+                      duration: 3 + Math.random() * 2,
+                      repeat: Infinity,
+                      delay: Math.random() * 2,
+                    }}
+                  >
+                    <Sparkles className="w-4 h-4 text-primary/50" />
+                  </motion.div>
+                ))}
+              </div>
+            )}
 
             {/* Icon */}
             <motion.div

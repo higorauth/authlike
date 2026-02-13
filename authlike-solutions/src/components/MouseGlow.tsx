@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const MouseGlow = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <motion.div

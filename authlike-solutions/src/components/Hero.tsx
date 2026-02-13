@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Bot, BarChart3, Cpu, Network, Sparkles, Code, Database, Shield } from "lucide-react";
 import TypeWriter from "./TypeWriter";
 import GlitchText from "./GlitchText";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const floatingIcons = [
   { icon: Zap, x: "12%", y: "18%", size: "w-16 h-16", delay: 0 },
@@ -19,83 +20,86 @@ const floatingIcons = [
 const typeWriterWords = ["impulsiona", "transforma", "revoluciona", "acelera"];
 
 const Hero = () => {
+  const isMobile = useIsMobile();
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Floating tech icons with enhanced effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {floatingIcons.map((item, index) => (
-          <motion.div
-            key={index}
-            className={`absolute ${item.size} rounded-2xl bg-primary/5 border border-primary/20 flex items-center justify-center backdrop-blur-sm`}
-            style={{ left: item.x, top: item.y }}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-              y: [0, -20, 0],
-              rotate: [0, 5, 0, -5, 0],
-            }}
-            transition={{
-              opacity: { duration: 0.5, delay: item.delay },
-              scale: { duration: 0.5, delay: item.delay },
-              y: { duration: 5 + index * 0.5, repeat: Infinity, ease: "easeInOut", delay: item.delay },
-              rotate: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: item.delay },
-            }}
-          >
-            <item.icon className="w-1/2 h-1/2 text-primary" />
-            {/* Multi-layer glow effect */}
-            <div className="absolute inset-0 rounded-2xl bg-primary/30 blur-xl -z-10" />
-            <div className="absolute inset-0 rounded-2xl bg-primary/10 blur-2xl -z-20 scale-150" />
-          </motion.div>
-        ))}
+      {/* Floating tech icons - desktop only */}
+      {!isMobile && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {floatingIcons.map((item, index) => (
+            <motion.div
+              key={index}
+              className={`absolute ${item.size} rounded-2xl bg-primary/5 border border-primary/20 flex items-center justify-center backdrop-blur-sm`}
+              style={{ left: item.x, top: item.y }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: [0, -20, 0],
+                rotate: [0, 5, 0, -5, 0],
+              }}
+              transition={{
+                opacity: { duration: 0.5, delay: item.delay },
+                scale: { duration: 0.5, delay: item.delay },
+                y: { duration: 5 + index * 0.5, repeat: Infinity, ease: "easeInOut", delay: item.delay },
+                rotate: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: item.delay },
+              }}
+            >
+              <item.icon className="w-1/2 h-1/2 text-primary" />
+              <div className="absolute inset-0 rounded-2xl bg-primary/30 blur-xl -z-10" />
+              <div className="absolute inset-0 rounded-2xl bg-primary/10 blur-2xl -z-20 scale-150" />
+            </motion.div>
+          ))}
 
-        {/* Enhanced connecting lines */}
-        <svg className="absolute inset-0 w-full h-full opacity-30">
-          <defs>
-            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="hsl(217 91% 60% / 0)" />
-              <stop offset="50%" stopColor="hsl(217 91% 60% / 1)" />
-              <stop offset="100%" stopColor="hsl(217 91% 60% / 0)" />
-            </linearGradient>
-          </defs>
-          <motion.line
-            x1="12%" y1="18%" x2="82%" y2="22%"
-            stroke="url(#lineGradient)"
-            strokeWidth="1"
-            strokeDasharray="8,4"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2, delay: 1 }}
-          />
-          <motion.line
-            x1="82%" y1="22%" x2="78%" y2="68%"
-            stroke="url(#lineGradient)"
-            strokeWidth="1"
-            strokeDasharray="8,4"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2, delay: 1.5 }}
-          />
-          <motion.line
-            x1="8%" y1="62%" x2="18%" y2="42%"
-            stroke="url(#lineGradient)"
-            strokeWidth="1"
-            strokeDasharray="8,4"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2, delay: 2 }}
-          />
-          <motion.line
-            x1="18%" y1="42%" x2="12%" y2="18%"
-            stroke="url(#lineGradient)"
-            strokeWidth="1"
-            strokeDasharray="8,4"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2, delay: 2.5 }}
-          />
-        </svg>
-      </div>
+          {/* Enhanced connecting lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-30">
+            <defs>
+              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="hsl(217 91% 60% / 0)" />
+                <stop offset="50%" stopColor="hsl(217 91% 60% / 1)" />
+                <stop offset="100%" stopColor="hsl(217 91% 60% / 0)" />
+              </linearGradient>
+            </defs>
+            <motion.line
+              x1="12%" y1="18%" x2="82%" y2="22%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              strokeDasharray="8,4"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2, delay: 1 }}
+            />
+            <motion.line
+              x1="82%" y1="22%" x2="78%" y2="68%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              strokeDasharray="8,4"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2, delay: 1.5 }}
+            />
+            <motion.line
+              x1="8%" y1="62%" x2="18%" y2="42%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              strokeDasharray="8,4"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2, delay: 2 }}
+            />
+            <motion.line
+              x1="18%" y1="42%" x2="12%" y2="18%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              strokeDasharray="8,4"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2, delay: 2.5 }}
+            />
+          </svg>
+        </div>
+      )}
 
       <div className="container mx-auto px-4 pt-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">

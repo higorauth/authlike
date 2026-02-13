@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, TrendingUp, Clock, Shield, Zap, Users, ArrowRight, Binary } from "lucide-react";
 import HolographicCard from "./HolographicCard";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const benefits = [
   {
@@ -43,33 +44,37 @@ const checkItems = [
 ];
 
 const Benefits = () => {
+  const isMobile = useIsMobile();
+
   return (
     <section id="beneficios" className="py-32 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/5 blur-[100px]" />
-        
-        {/* Animated binary background */}
-        <div className="absolute inset-0 overflow-hidden opacity-5">
-          {[...Array(10)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-primary font-mono text-xs whitespace-nowrap"
-              style={{ left: `${i * 10}%`, top: "-20px" }}
-              animate={{ y: ["0%", "100vh"] }}
-              transition={{
-                duration: 15 + Math.random() * 10,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-                ease: "linear",
-              }}
-            >
-              {[...Array(50)].map((_, j) => (
-                <div key={j}>{Math.random() > 0.5 ? "1" : "0"}</div>
-              ))}
-            </motion.div>
-          ))}
-        </div>
+
+        {/* Animated binary background - desktop only */}
+        {!isMobile && (
+          <div className="absolute inset-0 overflow-hidden opacity-5">
+            {[...Array(10)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-primary font-mono text-xs whitespace-nowrap"
+                style={{ left: `${i * 10}%`, top: "-20px" }}
+                animate={{ y: ["0%", "100vh"] }}
+                transition={{
+                  duration: 15 + Math.random() * 10,
+                  repeat: Infinity,
+                  delay: Math.random() * 5,
+                  ease: "linear",
+                }}
+              >
+                {[...Array(50)].map((_, j) => (
+                  <div key={j}>{Math.random() > 0.5 ? "1" : "0"}</div>
+                ))}
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
       
       <div className="container mx-auto px-4 relative">
