@@ -19,8 +19,8 @@ const Header = () => {
         <div className="glass-card rounded-2xl">
           <div className="container mx-auto px-6 py-4 flex items-center justify-between">
             {/* Logo */}
-            <motion.a 
-              href="#"
+            <motion.a
+              href="/"
               className="flex items-center"
               whileHover={{ scale: 1.02 }}
             >
